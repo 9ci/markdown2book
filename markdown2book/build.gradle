@@ -19,7 +19,7 @@ artifactory {
   publish {
     repository {
       repoKey = 'libs-release-local'   //The Artifactory repository key to publish to
-      username = REPO_NAME          //The publisher user name
+      username = REPO_USERNAME          //The publisher user name
       password = REPO_PASSWORD       //The publisher password
     }
   }
