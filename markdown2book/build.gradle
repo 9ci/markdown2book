@@ -1,16 +1,37 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 
-group = 'markdown2book'
-version = '1.0-SNAPSHOT'
-
 configurations {
 	deploy
 }
+buildscript {
+    repositories {
+        maven { url 'http://repo.jfrog.org/artifactory/gradle-plugins' }
+    }
+    dependencies {
+        classpath(group: 'org.jfrog.buildinfo', name: 'build-info-extractor-gradle', version: '2.0.11')
+    }
+}
+
+apply plugin: 'artifactory'
+artifactory {
+  contextUrl = 'http://repo.9ci.com/artifactory'
+  publish {
+    repository {
+      repoKey = 'libs-release-local'   //The Artifactory repository key to publish to
+      username = REPO_NAME          //The publisher user name
+      password = REPO_PASSWORD       //The publisher password
+    }
+  }
+}
+
+group = 'markdown2book'
+version = '1.1'
 
 repositories {
 	mavenCentral()
 	maven { url "http://m2repo.spockframework.org/snapshots" }
+    maven { url "http://repo.9ci.com/artifactory" }
 }
 
 dependencies {
